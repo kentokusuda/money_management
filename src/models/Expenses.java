@@ -1,5 +1,7 @@
 package models;
 
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +38,10 @@ public class Expenses {
     private Integer expense;
 
     @Column(name = "remarks" , nullable = true)
-    private Integer remarks;
+    private String remarks;
 
-    @Column(name = "update_at" , nullable = false)
-    private Integer update_at;
+    @Column(name = "update_at" , nullable = true)
+    private Timestamp update_at;
 
 
     public Integer getId() {
@@ -82,19 +84,19 @@ public class Expenses {
         this.expense = expense;
     }
 
-    public Integer getRemarks() {
+    public String getRemarks() {
         return remarks;
     }
 
-    public void setRemarks(Integer remarks) {
+    public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
-    public Integer getUpdate_at() {
+    public Timestamp getUpdate_at() {
         return update_at;
     }
 
-    public void setUpdate_at(Integer update_at) {
+    public void setUpdate_at(Timestamp update_at) {
         this.update_at = update_at;
     }
 
