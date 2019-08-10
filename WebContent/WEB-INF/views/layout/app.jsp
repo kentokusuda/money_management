@@ -8,7 +8,7 @@
 <body>
     <div id="wrapper">
         <div id="header">
-            <h1>支出管理</h1>
+            <h1><a href="${pageContext.request.contextPath}/index">支出管理</a></h1>
         </div>
         <div id="content">${param.content }</div>
         <div id="footer">作成 楠田</div>
