@@ -38,6 +38,7 @@ public class Edit extends HttpServlet {
         em.close();
 
         request.setAttribute("expenses",e);
+        request.getSession().setAttribute("expenses_id", e.getId());
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/expenses/edit.jsp");
         rd.forward(request, response);

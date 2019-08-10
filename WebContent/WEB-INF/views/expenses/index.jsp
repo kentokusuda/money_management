@@ -3,6 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:import url="../layout/app.jsp">
     <c:param name="content">
+        <c:if test="${flush != null}">
+            <div id="flush_success">
+                <c:out value="${flush}"></c:out>
+            </div>
+        </c:if>
 
 
         <p class = index_top><c:out value="${year}" />年<c:out value="${month}" />月のデータ</p>
@@ -29,7 +34,7 @@
                         <td class="expenses_day"><a href="${pageContext.request.contextPath}/edit?id=${expenses.id}"><c:out value="${expenses.day}" />日</a></td>
                         <td class="expenses_expense"><c:out
                                 value="${expenses.expense}" />円</td>
-                        <c:if test="${not empty expenses_remarks}">
+                        <c:if test="${not empty expenses.remarks}">
                             <td class="expenses_remarks"><c:out
                                 value="${expenses.remarks}" /></td>
                         </c:if>
