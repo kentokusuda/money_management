@@ -84,6 +84,10 @@ public class Index extends HttpServlet {
         request.setAttribute("year", year);
         request.setAttribute("month", month);
 
+        if (request.getSession().getAttribute("flush") != null) {
+            request.setAttribute("flush", request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");
+        }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/expenses/index.jsp");
         rd.forward(request, response);
@@ -147,7 +151,10 @@ public class Index extends HttpServlet {
         request.setAttribute("expenses", expenses);
         request.setAttribute("year", year);
         request.setAttribute("month", month);
-
+        if (request.getSession().getAttribute("flush") != null) {
+            request.setAttribute("flush", request.getSession().getAttribute("flush"));
+            request.getSession().removeAttribute("flush");
+        }
 
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/expenses/index.jsp");
         rd.forward(request, response);

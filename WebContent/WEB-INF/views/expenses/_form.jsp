@@ -1,15 +1,20 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<c:if test="${error != null}">
+        <div id="flush">
+            入力内容に誤りがあります。
+            <c:out value="${error}" />
+        </div>
+</c:if>
 <label for="expense">金額</label>
 <br />
-<input type="number" name="expense" value="${expenses.expense}" />
+<input type="number" name="expense" required value="${expenses.expense}" />
 円
 <br />
 <br />
 
-<label for="remark">内容</label>
+<label for="remarks">備考</label>
 <br />
 <textarea name="remarks" rows="10" cols="50">${expenses.remarks}</textarea>
 <br />
