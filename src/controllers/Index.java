@@ -72,8 +72,9 @@ public class Index extends HttpServlet {
                 em.persist(e);
                 em.getTransaction().commit();
             }
-
         }
+
+
 
         //当年当月のデータ全部ひっぱる
         List<Expenses> expenses = em.createNamedQuery("getAllData", Expenses.class).setParameter("year", year)
@@ -83,10 +84,9 @@ public class Index extends HttpServlet {
         request.setAttribute("year", year);
         request.setAttribute("month", month);
 
+
         RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/expenses/index.jsp");
         rd.forward(request, response);
-
-
 
         em.close();
 
@@ -97,8 +97,62 @@ public class Index extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // TODO Auto-generated method stub
-        doGet(request, response);
-    }
 
+
+
+        //年月取得
+        Integer year = Integer.parseInt(request.getParameter("expenses_year"));
+        Integer month = Integer.parseInt(request.getParameter("expenses_month"));
+
+        EntityManager em = DBUtil.createEntityManager();
+
+        //選んだ年月のデータが0である時
+        long m_count = (long) em.createNamedQuery("getReporCount", Long.class).setParameter("year", year)
+                .setParameter("month", month).getSingleResult();
+        if (m_count == 0) {
+
+            //ここから今月の日数(int)取得
+            Calendar calendar = Calendar.getInstance();
+
+
+            Integer month2 = month -1;
+            //今年の今月の1日をセット、一月進めて一日戻して最終日を取得する
+            calendar.set(year, month2, 1);
+            calendar.add(Calendar.MONTH, 1);
+            calendar.add(Calendar.DAY_OF_MONTH, -1);
+
+            int day = calendar.get(Calendar.DATE);
+
+            //DayにiをいれるためIntegerにした
+            for (Integer i = 1; i <= day; i++) {
+                //今月の日付分 年月日0円 だけはいったデータをつくる
+                Expenses e = new Expenses();
+                e.setYear(year);
+                e.setMonth(month);
+                e.setDay(i);
+                e.setExpense(0);
+
+                em.getTransaction().begin();
+                em.persist(e);
+                em.getTransaction().commit();
+            }
+        }
+
+
+
+        //当年当月のデータ全部ひっぱる
+        List<Expenses> expenses = em.createNamedQuery("getAllData", Expenses.class).setParameter("year", year)
+                .setParameter("month", month).getResultList();
+
+        request.setAttribute("expenses", expenses);
+        request.setAttribute("year", year);
+        request.setAttribute("month", month);
+
+
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/expenses/index.jsp");
+        rd.forward(request, response);
+
+        em.close();
+
+    }
 }
