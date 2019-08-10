@@ -5,7 +5,7 @@
     <c:param name="content">
         <c:choose>
             <c:when test="${expenses != null}">
-                <div><c:out  value="${expenses.year}" />年<c:out  value="${expenses.month}" />月<c:out  value="${expenses.day}" />日の詳細</div>
+                <div><c:out  value="${expenses.year}" />年<c:out  value="${expenses.month}" />月<c:out  value="${expenses.day}" />日</div>
                 <form method="POST" action="<c:url value='/update' />">
                 <c:import url="_form.jsp" />
             </form>

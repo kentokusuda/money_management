@@ -35,12 +35,24 @@ public class Index extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
         //年月取得
         Calendar calendar = Calendar.getInstance();
-        Integer year = calendar.get(Calendar.YEAR);
-        Integer month = calendar.get(Calendar.MONTH) + 1;
 
+        //updateから飛んできたときにtopをupdateした年付にする
+        Integer year;
+        Integer month;
+
+        if(request.getSession().getAttribute("flush_year") != null) {
+             year = (Integer)request.getSession().getAttribute("flush_year");
+             month = (Integer)request.getSession().getAttribute("flush_month");
+             request.getSession().removeAttribute("flush_year");
+             request.getSession().removeAttribute("flush_month");
+
+        }else {
+
+            year = calendar.get(Calendar.YEAR);
+            month = calendar.get(Calendar.MONTH) + 1;
+        }
         EntityManager em = DBUtil.createEntityManager();
 
         //今年今月のデータが0である時
@@ -107,6 +119,9 @@ public class Index extends HttpServlet {
         //年月取得
         Integer year = Integer.parseInt(request.getParameter("expenses_year"));
         Integer month = Integer.parseInt(request.getParameter("expenses_month"));
+
+        request.getSession().setAttribute("flush_year", year);
+        request.getSession().setAttribute("flush_month", month);
 
         EntityManager em = DBUtil.createEntityManager();
 

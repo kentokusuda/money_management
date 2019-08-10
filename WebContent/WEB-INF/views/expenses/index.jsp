@@ -10,7 +10,7 @@
         </c:if>
 
 
-        <p class = index_top><c:out value="${year}" />年<c:out value="${month}" />月のデータ</p>
+        <p class = index_top><c:out value="${year}" />年<c:out value="${month}" />月出費一覧</p>
         <br />
         <p class = year_month>確認したい年月を選んでください</p>
         <form method="POST" action="<c:url value='/index' />">
@@ -18,7 +18,7 @@
             <label for="expenses_year">年</label>
             <input type="number" name="expenses_month" min="1" max="12" required/>
             <label for="expenses_month">月</label><br />
-            <button type="submit">決定</button>
+            <button type="submit">選択</button>
         </form>
         <table id="expenses_list">
             <tbody>

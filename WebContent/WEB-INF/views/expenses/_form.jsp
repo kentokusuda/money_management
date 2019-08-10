@@ -7,7 +7,7 @@
             <c:out value="${error}" />
         </div>
 </c:if>
-<label for="expense">金額</label>
+<label for="expense">出費額</label>
 <br />
 <input type="number" name="expense" required value="${expenses.expense}" />
 円
