@@ -14,9 +14,10 @@
         <br />
         <p class = year_month>確認したい年月を選んでください</p>
         <form method="POST" action="<c:url value='/index' />">
-            <input type="number" name="expenses_year" min="2019" max="2030" required />
+            <input type="number" name="expenses_year" min="2019" max="2030" value ="${year}"  required />
+
             <label for="expenses_year">年</label>
-            <input type="number" name="expenses_month" min="1" max="12" required/>
+            <input type="number" name="expenses_month" min="1" max="12" value ="${month}" required/>
             <label for="expenses_month">月</label><br />
             <button type="submit">選択</button>
         </form>

@@ -8,8 +8,8 @@
         </div>
 </c:if>
 <label for="expense">出費額</label>
-<br />
-<input type="number" name="expense" required value="${expenses.expense}" />
+<br /><!-- 数字のみ入力で7桁まで入力可能、必須入力 -->
+<input type="number" name="expense"  required value="${expenses.expense}" oninput="if(value.length>7)value=value.slice(0,7)">
 円
 <br />
 <br />

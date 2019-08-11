@@ -45,8 +45,6 @@ public class Index extends HttpServlet {
         if(request.getSession().getAttribute("flush_year") != null) {
              year = (Integer)request.getSession().getAttribute("flush_year");
              month = (Integer)request.getSession().getAttribute("flush_month");
-             request.getSession().removeAttribute("flush_year");
-             request.getSession().removeAttribute("flush_month");
 
         }else {
 

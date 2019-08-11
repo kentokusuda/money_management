@@ -14,5 +14,6 @@
                 <div>データは見つかりませんでした。</div>
             </c:otherwise>
         </c:choose>
+        <p class = top_return><a href="${pageContext.request.contextPath}/index">戻る</a></p>
     </c:param>
 </c:import>
