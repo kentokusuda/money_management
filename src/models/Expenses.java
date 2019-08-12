@@ -15,7 +15,8 @@ import javax.persistence.Table;
 @Table(name = "expenses")
 @NamedQueries({
     @NamedQuery (name = "getReporCount", query = "SELECT COUNT(e) FROM Expenses AS e WHERE e.year = :year AND e.month =:month"),//カウントが0なら1-31日のデータ全部つくる
-    @NamedQuery (name = "getAllData",query = "SELECT e FROM Expenses AS e WHERE e.year = :year AND e.month =:month"),//表示のための取得
+    @NamedQuery (name = "getAllData",query = "SELECT e FROM Expenses AS e WHERE e.year = :year AND e.month =:month")//表示のための取得
+
 })
 
 public class Expenses {

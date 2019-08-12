@@ -42,6 +42,7 @@ public class Update extends HttpServlet {
         e.setRemarks(request.getParameter("remarks"));
         e.setUpdate_at(new Timestamp(System.currentTimeMillis()));
 
+        //いらないきがする
         String error = Validator.validateExpense(e);
         if(!error.equals("")){
             em.close();

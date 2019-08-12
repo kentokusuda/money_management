@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -53,6 +54,14 @@ public class Index extends HttpServlet {
         }
         EntityManager em = DBUtil.createEntityManager();
 
+        //合計金額
+        Query query = em.createQuery("select sum(s.expense) from Expenses s WHERE s.year = :year AND s.month =:month", Object.class);
+        Object sum_money_ob = query.setParameter("year", year)
+                .setParameter("month", month).getSingleResult();
+
+        String sum_money_st = sum_money_ob.toString();
+        int sum_money_int = new Integer(sum_money_st).intValue();
+
         //今年今月のデータが0である時
         long m_count = (long) em.createNamedQuery("getReporCount", Long.class).setParameter("year", year)
                 .setParameter("month", month).getSingleResult();
@@ -93,6 +102,7 @@ public class Index extends HttpServlet {
         request.setAttribute("expenses", expenses);
         request.setAttribute("year", year);
         request.setAttribute("month", month);
+        request.setAttribute("sum_money", sum_money_int);
 
         if (request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
@@ -122,6 +132,14 @@ public class Index extends HttpServlet {
         request.getSession().setAttribute("flush_month", month);
 
         EntityManager em = DBUtil.createEntityManager();
+
+        //合計金額
+        Query query = em.createQuery("select sum(s.expense) from Expenses s WHERE s.year = :year AND s.month =:month", Object.class);
+        Object sum_money_ob = query.setParameter("year", year)
+                .setParameter("month", month).getSingleResult();
+
+        String sum_money_st = sum_money_ob.toString();
+        int sum_money_int = new Integer(sum_money_st).intValue();
 
         //選んだ年月のデータが0である時
         long m_count = (long) em.createNamedQuery("getReporCount", Long.class).setParameter("year", year)
@@ -164,6 +182,8 @@ public class Index extends HttpServlet {
         request.setAttribute("expenses", expenses);
         request.setAttribute("year", year);
         request.setAttribute("month", month);
+        request.setAttribute("sum_money", sum_money_int);
+
         if (request.getSession().getAttribute("flush") != null) {
             request.setAttribute("flush", request.getSession().getAttribute("flush"));
             request.getSession().removeAttribute("flush");

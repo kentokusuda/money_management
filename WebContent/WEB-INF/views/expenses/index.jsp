@@ -18,7 +18,7 @@
 
             <label for="expenses_year">年</label>
             <input type="number" name="expenses_month" min="1" max="12" value ="${month}" required/>
-            <label for="expenses_month">月</label><br />
+            <label for="expenses_month">月</label>
             <button type="submit">選択</button>
         </form>
         <table id="expenses_list">
@@ -35,17 +35,26 @@
                         <td class="expenses_day"><a href="${pageContext.request.contextPath}/edit?id=${expenses.id}"><c:out value="${expenses.day}" />日</a></td>
                         <td class="expenses_expense"><c:out
                                 value="${expenses.expense}" />円</td>
-                        <c:if test="${not empty expenses.remarks}">
-                            <td class="expenses_remarks"><c:out
-                                value="${expenses.remarks}" /></td>
-                        </c:if>
+
+                         <c:choose>
+                            <c:when test="${empty expenses.remarks}">
+                                <td class="expenses_remarks"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <td class="expenses_remarks">${expenses.remarks}</td>
+                            </c:otherwise>
+                        </c:choose>
+
+
                     </tr>
                 </c:forEach>
             </tbody>
         </table>
-        <p class = index_footer>合計 円<p>
 
 
+        <p class = index_footer>合計<c:out
+                                value="${sum_money}" />円</p>
 
+        <br />
     </c:param>
 </c:import>

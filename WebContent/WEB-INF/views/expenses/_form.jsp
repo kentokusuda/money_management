@@ -16,7 +16,7 @@
 
 <label for="remarks">備考</label>
 <br />
-<textarea name="remarks" rows="10" cols="50">${expenses.remarks}</textarea>
+<textarea name="remarks" rows="10" cols="30" maxlength="200">${expenses.remarks} </textarea>
 <br />
 
 <button type="submit">更新</button>
